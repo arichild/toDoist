@@ -1,7 +1,7 @@
 const input = document.querySelector('.task');
 const btnCreate = document.querySelector('.create');
 
-btnCreate.addEventListener('click', createTask)
+btnCreate.addEventListener('click', createTask);
 
 function createTask() {
     const inputValue = input.value;
@@ -10,4 +10,7 @@ function createTask() {
     newDiv.textContent = inputValue;
     
     document.body.appendChild(newDiv);
+
+    input.value = '';
+    input.focus()
 }
