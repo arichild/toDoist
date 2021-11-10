@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  font-size: 25px;
+  background-color: #1a1b1c;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  margin-top: 10%;
+}
+
+button {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  outline: none;
+}
+
+.create-list {
+  display: flex;
+}
+
+.create-list input {
+  outline: none;
+  width: 300px;
+  height: 40px;
+  background-color: #292929;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+}
+
+i {
+  color: #fff;
+  font-size: 15px;
+  pointer-events: none;
+}
+
+.list {
+  margin-top: 20px;
+  height: 40px;
+}
+
+.list-task li{
+  list-style: none;
+  background-color: #292929;
+  color: #fff;
+  height: 40px;
+  padding: 5px 10px;
+}
+
+.toDo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.list-task {
+  flex: 1;
+}
+
+.toDo.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.toDo.delete {
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
