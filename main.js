@@ -18,6 +18,8 @@ function createTask(e) {
         const newToDo = document.createElement("li");
         newToDo.classList.add('list-task')
         newToDo.innerText = inputValue;
+
+        saveLocal(inputValue);
     
         input.value = "";
         newDiv.append(newToDo);
@@ -33,7 +35,6 @@ function createTask(e) {
         newDiv.appendChild(deleteBtn)
     } 
     
-    input.value = '';
     input.focus()
 }
 
@@ -50,4 +51,17 @@ function deleteToDo(e) {
             getParent.remove();
         });
     }
+}
+
+function saveLocal(todo) {
+    let saveToDo;
+
+    if(localStorage.getItem('saveToDo') === null) {
+        saveToDo = [];
+    } else {
+        saveToDo = JSON.parse(localStorage.getItem('saveToDo'));
+    }
+
+    saveToDo.push(todo);
+    localStorage.setItem("saveToDo", JSON.stringify(saveToDo));
 }
