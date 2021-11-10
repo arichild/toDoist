@@ -45,6 +45,7 @@ function deleteToDo(e) {
 
     if(item.classList[0] === 'complete-task') {
        getParent.classList.toggle('completed');
+       localStorage.setItem('done', getParent.classList);
     } else if (item.classList[0] === 'detele-task') {
         getParent.classList.add('delete');
         removeLocal(getParent);
@@ -53,7 +54,20 @@ function deleteToDo(e) {
             getParent.remove();
         });
     }
+
+
 }
+
+// window.onload = checkTheme(getParent);
+
+// function checkTheme(todo) {
+//     console.log('hi')
+//     // const localStorageDone = localStorage.getItem('done');
+
+//     // if (localStorageDone !== null && localStorageDone === 'toDo completed') {
+//     //     todo.className = localStorageDone;
+//     // }
+// }
 
 function saveLocal(todo) {
     let saveToDo;
@@ -109,7 +123,7 @@ function removeLocal(todo) {
         saveToDo = JSON.parse(localStorage.getItem("saveToDo"));
     }
 
-    const indexLocal = todo.children[0].innerText;
+    const indexLocal = todo.children[0].innerText;    
      saveToDo.splice(saveToDo.indexOf(indexLocal), 1);
      localStorage.setItem('saveToDo', JSON.stringify(saveToDo))
 }
