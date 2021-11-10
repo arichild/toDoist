@@ -46,6 +46,7 @@ function deleteToDo(e) {
     if(item.classList[0] === 'complete-task') {
        getParent.classList.toggle('completed');
        localStorage.setItem('done', getParent.classList);
+
     } else if (item.classList[0] === 'detele-task') {
         getParent.classList.add('delete');
         removeLocal(getParent);
@@ -54,20 +55,23 @@ function deleteToDo(e) {
             getParent.remove();
         });
     }
-
-
 }
 
-// window.onload = checkTheme(getParent);
+document.addEventListener("DOMContentLoaded", checkTheme);
 
-// function checkTheme(todo) {
-//     console.log('hi')
-//     // const localStorageDone = localStorage.getItem('done');
+function checkTheme(e) {
+    const test = e.target;
+    const localStorageDone = localStorage.getItem('done');
 
-//     // if (localStorageDone !== null && localStorageDone === 'toDo completed') {
-//     //     todo.className = localStorageDone;
-//     // }
-// }
+    console.log(list.children.target)
+
+    if (localStorageDone !== null && localStorageDone === 'toDo completed') {
+        for(let i = 0; i <= list.children.length; ++i) {
+            list.children[i].className = localStorageDone;
+            // console.log(list.children[i])
+        }
+    }
+}
 
 function saveLocal(todo) {
     let saveToDo;
