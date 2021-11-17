@@ -17,7 +17,7 @@ function createTask(e) {
         list.append(newDiv);
 
         const newToDo = document.createElement("li");
-        newToDo.classList.add('list-task')
+        newToDo.classList.add('list-task');
         newToDo.innerText = inputValue;
 
         saveLocal(inputValue);
@@ -28,12 +28,12 @@ function createTask(e) {
         const completeBtn = document.createElement('button');
         completeBtn.classList.add('complete-task');
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        newDiv.appendChild(completeBtn)
+        newDiv.appendChild(completeBtn);
 
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
-        newDiv.appendChild(deleteBtn)
+        newDiv.appendChild(deleteBtn);
     } 
     
     input.focus()
@@ -43,9 +43,10 @@ function deleteToDo(e) {
     item = e.target;
     const getParent = item.parentElement;
 
-    if(item.classList[0] === 'complete-task') {
+    if (item.classList[0] === 'complete-task') {
        getParent.classList.toggle('completed');
-       localStorage.setItem('done', getParent.classList);
+
+       completeItem(getParent);
 
     } else if (item.classList[0] === 'detele-task') {
         getParent.classList.add('delete');
@@ -57,45 +58,24 @@ function deleteToDo(e) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", checkTheme);
-
-function checkTheme(e) {
-    const test = e.target;
-    const localStorageDone = localStorage.getItem('done');
-
-    console.log(list.children.target)
-
-    if (localStorageDone !== null && localStorageDone === 'toDo completed') {
-        for(let i = 0; i <= list.children.length; ++i) {
-            list.children[i].className = localStorageDone;
-            // console.log(list.children[i])
-        }
-    }
-}
-
 function saveLocal(todo) {
-    let saveToDo;
+    let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
+    todo: [],
+    completed: []
+    };
 
-    if(localStorage.getItem('saveToDo') === null) {
-        saveToDo = [];
-    } else {
-        saveToDo = JSON.parse(localStorage.getItem('saveToDo'));
-    }
-
-    saveToDo.push(todo);
-    localStorage.setItem("saveToDo", JSON.stringify(saveToDo));
+    data.todo.push(todo);
+    localStorage.setItem("todoList", JSON.stringify(data));
 }
+
 
 function getToDous() {
-    let saveToDo;
+    let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
+    todo: [],
+    completed: []
+    };
 
-    if (localStorage.getItem("saveToDo") === null) {
-        saveToDo = [];
-    } else {
-        saveToDo = JSON.parse(localStorage.getItem("saveToDo"));
-    }
-
-    saveToDo.forEach(function(todo) {
+    data.todo.forEach(function(todo) {
         const newDiv = document.createElement("div");
         newDiv.classList.add('toDo');
         list.append(newDiv);
@@ -119,15 +99,39 @@ function getToDous() {
 };
 
 function removeLocal(todo) {
-    let saveToDo;
+    let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
+    todo: [],
+    completed: []
+    };
 
-    if (localStorage.getItem("saveToDo") === null) {
-        saveToDo = [];
+    const indexLocal = todo.children[0].innerText;
+    data.todo.splice(data.todo.indexOf(indexLocal), 1);
+    localStorage.setItem("todoList", JSON.stringify(data));
+}
+
+function completeItem(todo) {
+    let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
+    todo: [],
+    completed: []
+    };
+
+    const item = todo;
+    const parent = item.parentNode;
+    const id = parent.id;
+    const value = item.innerText;  
+
+    if (id === 'todo') {
+        data.todo.splice(data.todo.indexOf(value), 1);
+        data.completed.push(value);
     } else {
-        saveToDo = JSON.parse(localStorage.getItem("saveToDo"));
+        data.completed.splice(data.completed.indexOf(value), 1);
+        data.todo.push(value);
     }
 
-    const indexLocal = todo.children[0].innerText;    
-     saveToDo.splice(saveToDo.indexOf(indexLocal), 1);
-     localStorage.setItem('saveToDo', JSON.stringify(saveToDo))
+    localStorage.setItem("todoList", JSON.stringify(data));
+
+  let target = (id === 'todo') ? document.getElementById('completed'):document.getElementById('todo');
+
+  parent.removeChild(item);
+  target.insertBefore(item, target.childNodes[0])
 }
