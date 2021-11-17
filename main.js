@@ -45,7 +45,6 @@ function deleteToDo(e) {
 
     if (item.classList[0] === 'complete-task') {
        getParent.classList.toggle('completed');
-
        completeItem(getParent);
 
     } else if (item.classList[0] === 'detele-task') {
@@ -68,21 +67,23 @@ function saveLocal(todo) {
     localStorage.setItem("todoList", JSON.stringify(data));
 }
 
-
 function getToDous() {
     let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
     todo: [],
     completed: []
     };
 
-    data.todo.forEach(function(todo) {
+    if (!data.todo.length && !data.completed.length) return;
+
+    for (var i = 0; i < data.todo.length; i++) {
+        var value = data.todo[i];
         const newDiv = document.createElement("div");
         newDiv.classList.add('toDo');
         list.append(newDiv);
 
         const newToDo = document.createElement("li");
         newToDo.classList.add('list-task')
-        newToDo.innerText = todo;
+        newToDo.innerText = value;
     
         newDiv.append(newToDo);
 
@@ -95,7 +96,30 @@ function getToDous() {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn)
-    })
+    }
+
+    for (var j = 0; j < data.completed.length; j++) {
+        var value = data.completed[j];
+        const newDiv = document.createElement("div");
+        newDiv.classList = 'toDo completed';
+        list.append(newDiv);
+
+        const newToDo = document.createElement("li");
+        newToDo.classList.add('list-task')
+        newToDo.innerText = value;
+    
+        newDiv.append(newToDo);
+
+        const completeBtn = document.createElement('button');
+        completeBtn.classList.add('complete-task');
+        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+        newDiv.appendChild(completeBtn)
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('detele-task');
+        deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
+        newDiv.appendChild(deleteBtn)
+    }
 };
 
 function removeLocal(todo) {
@@ -122,7 +146,8 @@ function completeItem(todo) {
 
     if (id === 'todo') {
         data.todo.splice(data.todo.indexOf(value), 1);
-        data.completed.push(value);
+        data.completed.push(value); 
+        item.classList = 'toDo completed';
     } else {
         data.completed.splice(data.completed.indexOf(value), 1);
         data.todo.push(value);
@@ -130,8 +155,8 @@ function completeItem(todo) {
 
     localStorage.setItem("todoList", JSON.stringify(data));
 
-  let target = (id === 'todo') ? document.getElementById('completed'):document.getElementById('todo');
+//   let target = (id === 'todo') ? document.getElementById('completed'):document.getElementById('todo');
 
-  parent.removeChild(item);
-  target.insertBefore(item, target.childNodes[0])
+//   parent.removeChild(item);
+//   target.insertBefore(item, target.childNodes[0])
 }
