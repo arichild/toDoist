@@ -39,8 +39,11 @@ function createTask(e) {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
+
+        newToDo.addEventListener('click', editToDo);
+        newToDo.addEventListener('mouseout', disableEditToDo);
     } 
-    
+
     input.focus();
 }
 
@@ -74,6 +77,9 @@ function getToDous() {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
+
+        newToDo.addEventListener('click', editToDo);
+        newToDo.addEventListener('mouseout', disableEditToDo);
     }
 
     for (let j = 0; j < data.completed.length; j++) {
@@ -92,12 +98,15 @@ function getToDous() {
         const completeBtn = document.createElement('button');
         completeBtn.classList.add('complete-task');
         completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        newDiv.appendChild(completeBtn);
+        newDiv.appendChild(completeBtn)
 
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
-        newDiv.appendChild(deleteBtn);
+        newDiv.appendChild(deleteBtn)
+
+        newToDo.addEventListener('click', editToDo);
+        newToDo.addEventListener('mouseout', disableEditToDo);
     }
 };
 
@@ -151,4 +160,12 @@ function removeLocal(todo) {
     }
 
     localStorage.setItem("todoList", JSON.stringify(data));
+}
+
+function editToDo() {
+    this.contentEditable = 'true';
+}
+
+function disableEditToDo() {
+    this.contentEditable = 'false';
 }

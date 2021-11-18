@@ -75,7 +75,6 @@ i {
 .list-task {
   height: 200px;
   overflow: auto;
-  scroll-behavior: smooth;
   flex: 1;
 }
 
