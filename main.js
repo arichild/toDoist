@@ -167,5 +167,18 @@ function editToDo() {
 }
 
 function disableEditToDo() {
-    this.contentEditable = 'false';
+    if(this.isContentEditable === true) {
+        this.contentEditable = 'false';
+
+        const test = this.innerText;
+
+        // data.todo.splice(data.todo.indexOf(test), 0, test);
+        // data.todo.unshift(test)
+
+        console.log(item.innerText);
+        console.log(data.todo.indexOf(test));
+        console.log(data.todo.splice(data.todo.indexOf(test), 1, test));
+    }
+
+    localStorage.setItem("todoList", JSON.stringify(data));
 }
