@@ -40,8 +40,24 @@ function createTask(e) {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newToDo.addEventListener('click', editToDo);
-        newToDo.addEventListener('mouseout', disableEditToDo);
+        newDiv.addEventListener('click', editToDo);
+        newDiv.addEventListener('mouseout', function() {
+            const value = this.textContent;
+
+            if(this.isContentEditable === true) {
+                this.contentEditable = 'false';
+
+                console.log(inputValue)
+
+                data.todo.splice(data.todo.indexOf(inputValue), 1, value)
+
+                console.log(value);
+                // console.log(data.todo.indexOf(value));
+                // console.log(data.todo.splice(data.todo.indexOf(inputValue), 1, value));
+            }
+
+            localStorage.setItem("todoList", JSON.stringify(data));
+        });
     } 
 
     input.focus();
@@ -79,7 +95,6 @@ function getToDous() {
         newDiv.appendChild(deleteBtn);
 
         newToDo.addEventListener('click', editToDo);
-        newToDo.addEventListener('mouseout', disableEditToDo);
     }
 
     for (let j = 0; j < data.completed.length; j++) {
@@ -106,7 +121,6 @@ function getToDous() {
         newDiv.appendChild(deleteBtn)
 
         newToDo.addEventListener('click', editToDo);
-        newToDo.addEventListener('mouseout', disableEditToDo);
     }
 };
 
@@ -164,21 +178,4 @@ function removeLocal(todo) {
 
 function editToDo() {
     this.contentEditable = 'true';
-}
-
-function disableEditToDo() {
-    if(this.isContentEditable === true) {
-        this.contentEditable = 'false';
-
-        const test = this.innerText;
-
-        // data.todo.splice(data.todo.indexOf(test), 0, test);
-        // data.todo.unshift(test)
-
-        console.log(item.innerText);
-        console.log(data.todo.indexOf(test));
-        console.log(data.todo.splice(data.todo.indexOf(test), 1, test));
-    }
-
-    localStorage.setItem("todoList", JSON.stringify(data));
 }
