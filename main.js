@@ -16,7 +16,7 @@ function createTask(e) {
   
     const inputValue = input.value;
 
-    if (inputValue !== '') {
+    if (inputValue) {
         const newDiv = document.createElement("div");
         newDiv.classList.add('toDo');
         list.append(newDiv);
@@ -40,20 +40,18 @@ function createTask(e) {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newDiv.addEventListener('click', editToDo);
-        newDiv.addEventListener('mouseout', function() {
-            const value = this.textContent;
+        newToDo.addEventListener('click', editToDo);
+        newToDo.addEventListener('mouseout', function() {
+            const itemValue = this.textContent;
 
             if(this.isContentEditable === true) {
                 this.contentEditable = 'false';
 
-                console.log(inputValue)
-
-                data.todo.splice(data.todo.indexOf(inputValue), 1, value)
-
-                console.log(value);
-                // console.log(data.todo.indexOf(value));
-                // console.log(data.todo.splice(data.todo.indexOf(inputValue), 1, value));
+                for (let i = 0; i < data.todo.length; i++) {
+                    if(inputValue === data.todo[i]) {  
+                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
+                    } 
+                }
             }
 
             localStorage.setItem("todoList", JSON.stringify(data));
@@ -95,6 +93,21 @@ function getToDous() {
         newDiv.appendChild(deleteBtn);
 
         newToDo.addEventListener('click', editToDo);
+        newToDo.addEventListener('mouseout', function() {
+            const itemValue = this.textContent;
+
+            if(this.isContentEditable === true) {
+                this.contentEditable = 'false';
+
+                for (let i = 0; i < data.todo.length; i++) {
+                    if(value === data.todo[i]) {  
+                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
+                    } 
+                }
+            }
+
+            localStorage.setItem("todoList", JSON.stringify(data));
+        });
     }
 
     for (let j = 0; j < data.completed.length; j++) {
