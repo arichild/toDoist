@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;600&display=swap');
 
 * {
     margin: 0;
@@ -8,7 +8,7 @@
 
 body {
   width: 100%;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Mulish', sans-serif;
   font-size: 25px;
   background-color: #1a1b1c;
 }
@@ -44,6 +44,12 @@ button {
   color: #fff;
   font-size: 20px;
   padding: 10px;
+}
+
+.create-list input[type="text"] {
+  font-family: 'Mulish', sans-serif;
+  font-size: 25px;
+  font-weight: 200;
 }
 
 i {
