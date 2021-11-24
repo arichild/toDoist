@@ -14,7 +14,7 @@ completed: []
 function createTask(e) {
     e.preventDefault();
   
-    const inputValue = input.value;
+    let inputValue = input.value;
 
     if (inputValue) {
         const newDiv = document.createElement("div");
@@ -48,9 +48,12 @@ function createTask(e) {
                 this.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
-                    if(inputValue === data.todo[i]) {  
+                    if(inputValue === data.todo[i]) { 
                         data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
-                    } 
+                        inputValue = data.todo[i];
+                    } else if(inputValue === data.todo[i]){
+                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
+                    }
                 }
             }
 
@@ -70,7 +73,7 @@ function getToDous() {
     if (!data.todo.length && !data.completed.length) return;
 
     for (let i = 0; i < data.todo.length; i++) {
-        const value = data.todo[i];
+        let value = data.todo[i];
 
         const newDiv = document.createElement("div");
         newDiv.classList.add('toDo');
@@ -100,9 +103,12 @@ function getToDous() {
                 this.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
-                    if(value === data.todo[i]) {  
+                    if(value === data.todo[i]) { 
                         data.todo.splice(data.todo.indexOf(value), 1, itemValue);
-                    } 
+                        value = data.todo[i];
+                    } else if(value === data.todo[i]){
+                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
+                    }
                 }
             }
 
