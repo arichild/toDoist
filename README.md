@@ -1,6 +1,5 @@
 ## Description
-A simple ToDo
-https://arichild.github.io/toDoist/
+A simple ToDo: https://arichild.github.io/toDoist/
 ## Details
 #### Main Features:
 1. Creating new tasks
