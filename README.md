@@ -7,3 +7,4 @@ A simple ToDo
 3. Marking a task as complete
 4. Marking a task as not complete
 5. Deleting a task
+6. Persist tasks between refreshes via Local Storage
