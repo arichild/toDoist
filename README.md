@@ -1,4 +1,3 @@
-# toDoist
 ## Description
 A simple ToDo
 ## Details
