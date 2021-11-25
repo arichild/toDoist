@@ -1,7 +1,7 @@
 ## Description
 A simple ToDo
 ## Details
-### Main Features:
+#### Main Features:
 1. Creating new tasks
 2. Editing tasks
 3. Marking a task as complete
