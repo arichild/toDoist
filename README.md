@@ -8,3 +8,4 @@ A simple ToDo: https://arichild.github.io/toDoist/
 4. Marking a task as not complete
 5. Deleting a task
 6. Persist tasks between refreshes via Local Storage
+7. Edited tasks are saved dynamically to the Local Storage
