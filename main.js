@@ -21,14 +21,14 @@ function createTask(e) {
         newDiv.classList.add('toDo');
         list.append(newDiv);
 
-        const newToDo = document.createElement("li");
-        newToDo.classList.add('list-task');
-        newToDo.innerText = inputValue;
+        const newLi = document.createElement("li");
+        newLi.classList.add('list-task');
+        newLi.innerText = inputValue;
 
         saveLocal(inputValue);
     
         input.value = "";
-        newDiv.append(newToDo);
+        newDiv.append(newLi);
 
         const completeBtn = document.createElement('button');
         completeBtn.classList.add('complete-task');
@@ -40,19 +40,19 @@ function createTask(e) {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newToDo.addEventListener('click', editToDo);
-        newToDo.addEventListener('mouseout', function() {
-            const itemValue = this.textContent;
+        newLi.addEventListener('click', editToDo);
+        newLi.addEventListener('mouseout', function() {
+            const liValue = this.textContent;
 
             if(this.isContentEditable === true) {
                 this.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
                     if(inputValue === data.todo[i]) { 
-                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
+                        data.todo.splice(data.todo.indexOf(inputValue), 1, liValue);
                         inputValue = data.todo[i];
-                    } else if(inputValue === data.todo[i]){
-                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
+                    } else {
+                        data.todo.splice(data.todo.indexOf(inputValue), 1, liValue);
                     }
                 }
             }
@@ -79,11 +79,10 @@ function getToDous() {
         newDiv.classList.add('toDo');
         list.append(newDiv);
 
-        const newToDo = document.createElement("li");
-        newToDo.classList.add('list-task')
-        newToDo.innerText = value;
-    
-        newDiv.append(newToDo);
+        const newLi = document.createElement("li");
+        newLi.classList.add('list-task')
+        newLi.innerText = value;
+        newDiv.append(newLi);
 
         const completeBtn = document.createElement('button');
         completeBtn.classList.add('complete-task');
@@ -95,19 +94,19 @@ function getToDous() {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newToDo.addEventListener('click', editToDo);
-        newToDo.addEventListener('mouseout', function() {
-            const itemValue = this.textContent;
+        newLi.addEventListener('click', editToDo);
+        newLi.addEventListener('mouseout', function() {
+            const liValue = this.textContent;
 
             if(this.isContentEditable === true) {
                 this.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
                     if(value === data.todo[i]) { 
-                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
+                        data.todo.splice(data.todo.indexOf(value), 1, liValue);
                         value = data.todo[i];
-                    } else if(value === data.todo[i]){
-                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
+                    } else {
+                        data.todo.splice(data.todo.indexOf(value), 1, liValue);
                     }
                 }
             }
@@ -123,11 +122,11 @@ function getToDous() {
         newDiv.classList = 'toDo completed';
         document.getElementById('completed').append(newDiv);
 
-        const newToDo = document.createElement("li");
-        newToDo.classList.add('list-task');
-        newToDo.innerText = value;
+        const newLi = document.createElement("li");
+        newLi.classList.add('list-task');
+        newLi.innerText = value;
     
-        newDiv.append(newToDo);
+        newDiv.append(newLi);
 
         const completeBtn = document.createElement('button');
         completeBtn.classList.add('complete-task');
@@ -138,8 +137,6 @@ function getToDous() {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn)
-
-        newToDo.addEventListener('click', editToDo);
     }
 };
 
@@ -161,6 +158,18 @@ function deleteToDo(e) {
     }
 }
 
+function removeLocal(todo) {
+    const indexLocal = todo.children[0].innerText;
+
+    if (todo.className === 'toDo delete'){
+        data.todo.splice(data.todo.indexOf(indexLocal), 1);
+    } else if (todo.className === 'toDo completed delete') {
+        data.completed.splice(data.completed.indexOf(indexLocal), 1);
+    }
+
+    localStorage.setItem("todoList", JSON.stringify(data));
+}
+
 function completeItem(todo) {
     const item = todo;
     const parent = item.parentNode;
@@ -177,22 +186,10 @@ function completeItem(todo) {
 
     localStorage.setItem("todoList", JSON.stringify(data));
 
-    let target = (id === 'todo') ? document.getElementById('completed'):document.getElementById('todo');
+    let target = (id === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
 
     parent.removeChild(item);
     target.insertBefore(item, target.childNodes[0]);
-}
-
-function removeLocal(todo) {
-    const indexLocal = todo.children[0].innerText;
-
-    if(todo.className === 'toDo delete'){
-        data.todo.splice(data.todo.indexOf(indexLocal), 1);
-    } else if(todo.className === 'toDo completed delete') {
-        data.completed.splice(data.completed.indexOf(indexLocal), 1);
-    }
-
-    localStorage.setItem("todoList", JSON.stringify(data));
 }
 
 function editToDo() {
