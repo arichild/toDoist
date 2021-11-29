@@ -40,7 +40,7 @@ function createTask(e) {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        window.addEventListener('mouseup', function(e) {
+        window.addEventListener('click', function(e) {
             const itemValue = newLi.textContent;
 
             if (e.target == newLi && newDiv.className === 'toDo'){
@@ -94,7 +94,7 @@ function getToDous() {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        window.addEventListener('mouseup', function(e) {
+        window.addEventListener('click', function(e) {
             const itemValue = newLi.textContent;
 
             if (e.target == newLi && newDiv.className === 'toDo'){
