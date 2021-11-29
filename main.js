@@ -40,12 +40,13 @@ function createTask(e) {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newLi.addEventListener('click', editToDo);
-        newLi.addEventListener('mouseout', function() {
-            const itemValue = this.textContent;
+        window.addEventListener('mouseup', function(e) {
+            const itemValue = newLi.textContent;
 
-            if (this.isContentEditable === true) {
-                this.contentEditable = 'false';
+            if (e.target == newLi && newDiv.className === 'toDo'){
+                newLi.contentEditable = 'true';
+            } else {
+                newLi.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
                     if (inputValue === data.todo[i]) { 
@@ -93,12 +94,13 @@ function getToDous() {
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
 
-        newLi.addEventListener('click', editToDo);
-        newLi.addEventListener('mouseout', function() {
-            const itemValue = this.textContent;
+        window.addEventListener('mouseup', function(e) {
+            const itemValue = newLi.textContent;
 
-            if (this.isContentEditable === true) {
-                this.contentEditable = 'false';
+            if (e.target == newLi && newDiv.className === 'toDo'){
+                newLi.contentEditable = 'true';
+            } else {
+                newLi.contentEditable = 'false';
 
                 for (let i = 0; i < data.todo.length; i++) {
                     if (value === data.todo[i]) { 
@@ -191,6 +193,20 @@ function completeToDo(todo) {
     target.appendChild(item, target.childNodes[0]);
 }
 
-function editToDo() {
-    this.contentEditable = 'true';
-}
+// window.addEventListener('mouseup', function(e) {
+//     const li = document.querySelector('.toDo');
+//     const test = this.document.querySelector('.task').value;
+
+//     console.log(e.target);
+//     console.log(li)
+
+//     // for (let i = 0; i < data.todo.length; i++){
+//     //     console.log(data.todo[i] === li.children[0].textContent)
+//     // }
+
+//     if(e.target == li.children[0]) {
+//         li.children[0].contentEditable = 'true';
+//     } else {
+//         li.children[0].contentEditable = 'false';
+//     }
+// });
