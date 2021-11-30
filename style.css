@@ -63,12 +63,15 @@ i {
   height: 40px;
 }
 
-.list-task li{
-  list-style: none;
-  background-color: #292929;
-  color: #fff;
-  height: 40px;
-  padding: 5px 10px;
+#todo {
+  height: 200px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+#todo::-webkit-scrollbar {
+  display: none;
+  width: 0;
 }
 
 .toDo {
@@ -78,12 +81,18 @@ i {
     margin-top: 15px;
 }
 
-.list-task {
+.list-task{
   flex: 1;
+  list-style: none;
+  background-color: #292929;
+  color: #fff;
+  height: 40px;
+  padding: 5px 10px;
 }
 
-.list-task::-webkit-scrollbar {
-  width: 5px;
+.toDo.delete {
+  opacity: 0;
+  transition: all 0.4s ease-out;
 }
 
 .toDo.completed {
@@ -92,27 +101,8 @@ i {
   opacity: 0.5;
 }
 
-.toDo.delete {
-  opacity: 0;
-  transition: all 0.4s ease-out;
-}
-
-#todo {
-  height: 200px;
-  overflow: auto;
-}
-
-#todo::-webkit-scrollbar {
-  display: none;
-  width: 0;
-}
-
-#todo { 
-  scrollbar-width: none;
-}
-
 #completed {
-  margin-top: 50px;
+  margin-top: 35px;
   color: #fff;
 }
 
@@ -122,4 +112,11 @@ i {
   color: #fff;
   height: 40px;
   padding: 5px 10px;  
+}
+
+.remove-todo{
+  margin-top: 35px;
+  width: 200px;
+  color: #fff;
+  font-size: 15px;
 }

@@ -11,17 +11,18 @@
 <body>
     <div class="wrapper">
         <form>
-        <div class="create-list">
-            <input class="task" id="textbox_id" type="text">
-            <button class="create"><i class="fas fa-plus"></i></button>
-        </div>
+            <div class="create-list">
+                <input class="task" id="textbox_id" type="text">
+                <button class="create"><i class="fas fa-plus"></i></button>
+            </div>
         </form>
 
         <div class="list">
-            <ul class="list-task" id="todo"></ul>
+            <ul class="uncompleted" id="todo"></ul>
 
-            <ul class="completed" id="completed">
-            </ul>
+            <button class="remove-todo">Remove all uncomplited</button>
+
+            <ul class="completed" id="completed"></ul>
         </div>
     </div>
     <script src="./main.js"></script>

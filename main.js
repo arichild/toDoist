@@ -1,6 +1,7 @@
 const input = document.querySelector('.task');
 const btnCreate = document.querySelector('.create');
-const list = document.querySelector('.list-task');
+const list = document.querySelector('.uncompleted');
+const removeAll = document.querySelector('.remove-todo');
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
@@ -39,27 +40,6 @@ function createTask(e) {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
-
-        window.addEventListener('click', function(e) {
-            const itemValue = newLi.textContent;
-
-            if (e.target == newLi && newDiv.className === 'toDo'){
-                newLi.contentEditable = 'true';
-            } else {
-                newLi.contentEditable = 'false';
-
-                for (let i = 0; i < data.todo.length; i++) {
-                    if (inputValue === data.todo[i]) { 
-                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
-                        inputValue = data.todo[i];
-                    } else if (inputValue === data.todo[i]) {
-                        data.todo.splice(data.todo.indexOf(inputValue), 1, itemValue);
-                    }
-                }
-            }
-
-            localStorage.setItem('todoList', JSON.stringify(data));
-        });
     } 
 }
 
@@ -93,27 +73,6 @@ function getToDous() {
         deleteBtn.classList.add('detele-task');
         deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
         newDiv.appendChild(deleteBtn);
-
-        window.addEventListener('click', function(e) {
-            const itemValue = newLi.textContent;
-
-            if (e.target == newLi && newDiv.className === 'toDo'){
-                newLi.contentEditable = 'true';
-            } else {
-                newLi.contentEditable = 'false';
-
-                for (let i = 0; i < data.todo.length; i++) {
-                    if (value === data.todo[i]) { 
-                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
-                        value = data.todo[i];
-                    } else if (value === data.todo[i]) {
-                        data.todo.splice(data.todo.indexOf(value), 1, itemValue);
-                    }
-                }
-            }
-
-            localStorage.setItem('todoList', JSON.stringify(data));
-        });
     }
 
     for (let j = 0; j < data.completed.length; j++) {
@@ -159,6 +118,10 @@ function deleteToDo(e) {
     }
 }
 
+function removeAllUncomplited() {
+    
+}
+
 function removeLocal(todo) {
     const indexLocal = todo.children[0].innerText;
 
@@ -193,20 +156,23 @@ function completeToDo(todo) {
     target.appendChild(item, target.childNodes[0]);
 }
 
-// window.addEventListener('mouseup', function(e) {
-//     const li = document.querySelector('.toDo');
-//     const test = this.document.querySelector('.task').value;
+window.addEventListener('click', function(e) {
+    const allToDo = this.document.getElementsByTagName('li');
 
-//     console.log(e.target);
-//     console.log(li)
+    for (let i = 0; i < allToDo.length; i++) {
+        if (e.target == allToDo[i]) {
+            allToDo[i].contentEditable = 'true';
+        } else { 
+            for (let i = 0; i < data.todo.length; i++) {
+                let value = data.todo[i];
 
-//     // for (let i = 0; i < data.todo.length; i++){
-//     //     console.log(data.todo[i] === li.children[0].textContent)
-//     // }
+                data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
+                value = data.todo[i];
+            }
 
-//     if(e.target == li.children[0]) {
-//         li.children[0].contentEditable = 'true';
-//     } else {
-//         li.children[0].contentEditable = 'false';
-//     }
-// });
+            allToDo[i].contentEditable = 'false';
+        }
+    }
+
+    localStorage.setItem('todoList', JSON.stringify(data));
+});
