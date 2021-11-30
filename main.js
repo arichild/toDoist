@@ -6,6 +6,7 @@ const removeAll = document.querySelector('.remove-todo');
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
+removeAll.addEventListener('click', removeAllUncompleted)
 
 let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
     todo: [],
@@ -118,10 +119,6 @@ function deleteToDo(e) {
     }
 }
 
-function removeAllUncomplited() {
-    
-}
-
 function removeLocal(todo) {
     const indexLocal = todo.children[0].innerText;
 
@@ -132,6 +129,13 @@ function removeLocal(todo) {
     }
 
     localStorage.setItem('todoList', JSON.stringify(data));
+}
+
+function removeAllUncompleted() {
+    while(list.firstChild) {
+        list.removeChild(list.firstChild);
+        data.todo.splice(data.todo);
+    }
 }
 
 function completeToDo(todo) {

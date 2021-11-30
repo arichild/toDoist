@@ -22,6 +22,7 @@ body {
 }
 
 button {
+  font-family: 'Mulish', sans-serif;
   cursor: pointer;
   height: 40px;
   width: 40px;
@@ -71,7 +72,6 @@ i {
 
 #todo::-webkit-scrollbar {
   display: none;
-  width: 0;
 }
 
 .toDo {
@@ -90,7 +90,7 @@ i {
   padding: 5px 10px;
 }
 
-.toDo.delete {
+.toDo.delete, .toDo.completed.delete {
   opacity: 0;
   transition: all 0.4s ease-out;
 }
@@ -103,15 +103,6 @@ i {
 
 #completed {
   margin-top: 35px;
-  color: #fff;
-}
-
-#completed li{
-  list-style: none;
-  background-color: #292929;
-  color: #fff;
-  height: 40px;
-  padding: 5px 10px;  
 }
 
 .remove-todo{
