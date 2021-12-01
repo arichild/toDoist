@@ -1,6 +1,6 @@
 const input = document.querySelector('.task');
-const btnCreate = document.querySelector('.create');
 const list = document.querySelector('.uncompleted');
+const btnCreate = document.querySelector('.create');
 const removeAll = document.querySelector('.remove-todo');
 
 document.addEventListener('DOMContentLoaded', getToDous);
@@ -76,8 +76,8 @@ function getToDous() {
         newDiv.appendChild(deleteBtn);
     }
 
-    for (let j = 0; j < data.completed.length; j++) {
-        const value = data.completed[j];
+    for (let i = 0; i < data.completed.length; i++) {
+        const value = data.completed[i];
 
         const newDiv = document.createElement('div');
         newDiv.classList = 'toDo completed';
@@ -132,10 +132,21 @@ function removeLocal(todo) {
 }
 
 function removeAllUncompleted() {
-    while(list.firstChild) {
-        list.removeChild(list.firstChild);
-        data.todo.splice(data.todo);
+    const uncomplitedCheck = document.getElementById('uncomplited-check');
+    const complitedCheck = document.getElementById('complited-check');
+
+    if(uncomplitedCheck.checked === true) {
+        data.todo = [];
+    } else if (complitedCheck.checked === true) {
+        data.completed = [];
+    } else {
+        data.todo = [];
     }
+
+    // while(list.firstChild) {
+    //     list.removeChild(list.firstChild);
+    //     data.todo = [];
+    // }
 }
 
 function completeToDo(todo) {
