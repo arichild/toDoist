@@ -3,10 +3,9 @@ A simple ToDo: https://arichild.github.io/toDoist/
 ## Details
 #### Main Features:
 1. Creating new tasks
-2. Editing tasks
-3. Marking a task as complete
-4. Marking a task as not complete
-5. Deleting a task
-6. Persist tasks between refreshes via Local Storage
-7. You can edit uncompleted tasks are saved dynamically to the Local Storage
-8. You can also remove all uncompleted tasks click of the button 
+2. Marking a task as complete
+3. Marking a task as not complete
+4. Deleting a task
+5. Persist all tasks between refreshes via Local Storage
+6. Opportunity of editing uncompleted tasks which will be are saved dynamically to the Local Storage
+7. You can also choose remove all uncompleted or completed tasks or all of them
