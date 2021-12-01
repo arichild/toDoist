@@ -1,6 +1,7 @@
 const input = document.querySelector('.task');
-const list = document.querySelector('.uncompleted');
 const btnCreate = document.querySelector('.create');
+const uncompletedList = document.querySelector('.uncompleted');
+const completedList = document.querySelector('.completed');
 const removeAll = document.querySelector('.remove-todo');
 
 document.addEventListener('DOMContentLoaded', getToDous);
@@ -21,7 +22,7 @@ function createTask(e) {
     if (inputValue) {
         const newDiv = document.createElement('div');
         newDiv.classList.add('toDo');
-        list.append(newDiv);
+        uncompletedList.append(newDiv);
 
         const newLi = document.createElement('li');
         newLi.classList.add('list-task');
@@ -57,7 +58,7 @@ function getToDous() {
 
         const newDiv = document.createElement('div');
         newDiv.classList.add('toDo');
-        list.append(newDiv);
+        uncompletedList.append(newDiv);
 
         const newLi = document.createElement('li');
         newLi.classList.add('list-task')
@@ -135,18 +136,19 @@ function removeAllUncompleted() {
     const uncomplitedCheck = document.getElementById('uncomplited-check');
     const complitedCheck = document.getElementById('complited-check');
 
-    if(uncomplitedCheck.checked === true) {
+    if (uncomplitedCheck.checked === true && complitedCheck.checked === false) {
+        uncompletedList.innerHTML = '';
         data.todo = [];
-    } else if (complitedCheck.checked === true) {
+    } else if (complitedCheck.checked === true && uncomplitedCheck.checked === false) {
+        completedList.innerHTML = '';
         data.completed = [];
-    } else {
-        data.todo = [];
-    }
+    } else if (uncomplitedCheck.checked === true && complitedCheck.checked === true) {
+        uncompletedList.innerHTML = '';
+        completedList.innerHTML = '';
 
-    // while(list.firstChild) {
-    //     list.removeChild(list.firstChild);
-    //     data.todo = [];
-    // }
+        data.todo = [];
+        data.completed = [];
+    }
 }
 
 function completeToDo(todo) {

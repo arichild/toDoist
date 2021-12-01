@@ -103,6 +103,13 @@ i {
 
 #completed {
   margin-top: 35px;
+  height: 125px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+#completed::-webkit-scrollbar {
+  display: none;
 }
 
 .remove-todo{
