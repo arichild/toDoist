@@ -3,11 +3,14 @@ const btnCreate = document.querySelector('.create');
 const uncompletedList = document.querySelector('.uncompleted');
 const completedList = document.querySelector('.completed');
 const removeAll = document.querySelector('.remove-todo');
+const uncomplitedCheck = document.getElementById('uncomplited-check');
+const complitedCheck = document.getElementById('complited-check');
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
-removeAll.addEventListener('click', removeAllUncompleted)
+removeAll.addEventListener('click', removeAllUncompleted);
+removeAll.addEventListener('click', saveStatusCheckbox);
 
 let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
     todo: [],
@@ -133,9 +136,6 @@ function removeLocal(todo) {
 }
 
 function removeAllUncompleted() {
-    const uncomplitedCheck = document.getElementById('uncomplited-check');
-    const complitedCheck = document.getElementById('complited-check');
-
     if (uncomplitedCheck.checked === true && complitedCheck.checked === false) {
         uncompletedList.innerHTML = '';
         data.todo = [];
@@ -150,6 +150,21 @@ function removeAllUncompleted() {
         data.completed = [];
     }
 }
+
+function saveStatusCheckbox() {
+    localStorage.setItem("checkbox1", uncomplitedCheck.checked);
+    localStorage.setItem("checkbox2", complitedCheck.checked);
+}
+
+function getCheckBox() {
+    let checkbox1 = JSON.parse(localStorage.getItem("checkbox1"));
+    uncomplitedCheck.checked = checkbox1;
+    
+    let checkbox2 = JSON.parse(localStorage.getItem("checkbox2"));
+    complitedCheck.checked = checkbox2;
+}
+
+getCheckBox();
 
 function completeToDo(todo) {
     const item = todo;
@@ -174,7 +189,7 @@ function completeToDo(todo) {
 }
 
 window.addEventListener('click', function(e) {
-    const allToDo = this.document.getElementsByTagName('li');
+    const allToDo = document.getElementsByTagName('li');
 
     for (let i = 0; i < allToDo.length; i++) {
         if (e.target == allToDo[i]) {
