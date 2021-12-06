@@ -53,7 +53,7 @@ function buttons(todo) {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add(DELETE_BTN);
-    deleteBtn.innerHTML = '<i class="far fa-trash-alt aria-hidden="true""></i>';
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
     todo.appendChild(deleteBtn);
 }
 
@@ -104,6 +104,7 @@ function deleteToDo(e) {
 
     if (item.classList[0] === COMPLETE_BTN) {
        getParent.classList.toggle('completed');
+       console.log(getParent.className.trim())
        completeToDo(getParent);
 
     } else if (item.classList[0] === DELETE_BTN) {
