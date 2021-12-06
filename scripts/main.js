@@ -48,12 +48,12 @@ function createTask(e) {
 function buttons(todo) {
     const completeBtn = document.createElement('button');
     completeBtn.classList.add(COMPLETE_BTN);
-    completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+    completeBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
     todo.appendChild(completeBtn);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add(DELETE_BTN);
-    deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt aria-hidden="true""></i>';
     todo.appendChild(deleteBtn);
 }
 
