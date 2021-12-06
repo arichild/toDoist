@@ -11,6 +11,12 @@ btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
 removeAll.addEventListener('click', removeAllUncompleted);
 removeAll.addEventListener('click', saveStatusCheckbox);
+getCheckBox();
+
+const TODO = 'toDo';
+const LIST = 'list-task';
+const COMPLETE_BTN = 'complete-task'; 
+const DELETE_BTN = 'detele-task';
 
 let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
     todo: [],
@@ -22,13 +28,13 @@ function createTask(e) {
   
     let inputValue = input.value;
 
-    if (inputValue) {
+    if (inputValue.length) {
         const newDiv = document.createElement('div');
-        newDiv.classList.add('toDo');
+        newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
 
         const newLi = document.createElement('li');
-        newLi.classList.add('list-task');
+        newLi.classList.add(LIST);
         newLi.innerText = inputValue;
 
         saveLocal(inputValue);
@@ -36,16 +42,20 @@ function createTask(e) {
         input.value = '';
         newDiv.append(newLi);
 
-        const completeBtn = document.createElement('button');
-        completeBtn.classList.add('complete-task');
-        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        newDiv.appendChild(completeBtn);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('detele-task');
-        deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
-        newDiv.appendChild(deleteBtn);
+        buttons(newDiv);
     } 
+}
+
+function buttons(todo) {
+    const completeBtn = document.createElement('button');
+    completeBtn.classList.add(COMPLETE_BTN);
+    completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+    todo.appendChild(completeBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add(DELETE_BTN);
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
+    todo.appendChild(deleteBtn);
 }
 
 function saveLocal(todo) {
@@ -60,24 +70,16 @@ function getToDous() {
         let value = data.todo[i];
 
         const newDiv = document.createElement('div');
-        newDiv.classList.add('toDo');
+        newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
 
         const newLi = document.createElement('li');
-        newLi.classList.add('list-task')
+        newLi.classList.add(LIST)
         newLi.innerText = value;
     
         newDiv.append(newLi);
 
-        const completeBtn = document.createElement('button');
-        completeBtn.classList.add('complete-task');
-        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        newDiv.appendChild(completeBtn);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('detele-task');
-        deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
-        newDiv.appendChild(deleteBtn);
+        buttons(newDiv);
     }
 
     for (let i = 0; i < data.completed.length; i++) {
@@ -88,32 +90,24 @@ function getToDous() {
         document.getElementById('completed').append(newDiv);
 
         const newLi = document.createElement('li');
-        newLi.classList.add('list-task');
+        newLi.classList.add(LIST);
         newLi.innerText = value;
     
         newDiv.append(newLi);
 
-        const completeBtn = document.createElement('button');
-        completeBtn.classList.add('complete-task');
-        completeBtn.innerHTML = '<i class="fas fa-check"></i>';
-        newDiv.appendChild(completeBtn)
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('detele-task');
-        deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
-        newDiv.appendChild(deleteBtn)
+        buttons(newDiv);
     }
 };
 
 function deleteToDo(e) {
-    item = e.target;
+    const item = e.target;
     const getParent = item.parentElement;
 
-    if (item.classList[0] === 'complete-task') {
+    if (item.classList[0] === COMPLETE_BTN) {
        getParent.classList.toggle('completed');
        completeToDo(getParent);
 
-    } else if (item.classList[0] === 'detele-task') {
+    } else if (item.classList[0] === DELETE_BTN) {
         getParent.classList.add('delete');
         removeLocal(getParent);
 
@@ -163,8 +157,6 @@ function getCheckBox() {
     let checkbox2 = JSON.parse(localStorage.getItem("checkbox2"));
     complitedCheck.checked = checkbox2;
 }
-
-getCheckBox();
 
 function completeToDo(todo) {
     const item = todo;
