@@ -6,17 +6,16 @@ const removeAll = document.querySelector('.remove-todo');
 const uncomplitedCheck = document.getElementById('uncomplited-check');
 const complitedCheck = document.getElementById('complited-check');
 
+const TODO = 'toDo';
+const LIST = 'list-task';
+const COMPLETE_BTN = 'complete-task'; 
+const DELETE_BTN = 'detele-task';
+
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
 removeAll.addEventListener('click', removeAllUncompleted);
 removeAll.addEventListener('click', saveStatusCheckbox);
-getCheckBox();
-
-const TODO = 'toDo';
-const LIST = 'list-task';
-const COMPLETE_BTN = 'complete-task'; 
-const DELETE_BTN = 'detele-task';
 
 let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
     todo: [],
@@ -150,13 +149,13 @@ function saveStatusCheckbox() {
     localStorage.setItem("checkbox2", complitedCheck.checked);
 }
 
-function getCheckBox() {
+(function() {
     let checkbox1 = JSON.parse(localStorage.getItem("checkbox1"));
     uncomplitedCheck.checked = checkbox1;
     
     let checkbox2 = JSON.parse(localStorage.getItem("checkbox2"));
     complitedCheck.checked = checkbox2;
-}
+})();
 
 function completeToDo(todo) {
     const item = todo;
