@@ -180,23 +180,23 @@ function completeToDo(todo) {
     target.appendChild(item, target.childNodes[0]);
 }
 
-window.addEventListener('click', function(e) {
-    const allToDo = document.getElementsByTagName('li');
+// window.addEventListener('click', function(e) {
+//     const allToDo = document.getElementsByTagName('li');
 
-    for (let i = 0; i < allToDo.length; i++) {
-        if (e.target == allToDo[i]) {
-            allToDo[i].contentEditable = 'true';
-        } else { 
-            for (let i = 0; i < data.todo.length; i++) {
-                let value = data.todo[i];
+//     for (let i = 0; i < allToDo.length; i++) {
+//         if (e.target == allToDo[i]) {
+//             allToDo[i].contentEditable = 'true';
+//         } else { 
+//             for (let i = 0; i < data.todo.length; i++) {
+//                 let value = data.todo[i];
 
-                data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
-                value = data.todo[i];
-            }
+//                 data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
+//                 value = data.todo[i];
+//             }
 
-            allToDo[i].contentEditable = 'false';
-        }
-    }
+//             allToDo[i].contentEditable = 'false';
+//         }
+//     }
 
-    localStorage.setItem('todoList', JSON.stringify(data));
-});
+//     localStorage.setItem('todoList', JSON.stringify(data));
+// });
