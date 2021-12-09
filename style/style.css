@@ -74,7 +74,7 @@ i {
   display: none;
 }
 
-.toDo {
+.toDo, .toDo-completed{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -90,12 +90,7 @@ i {
   padding: 5px 10px;
 }
 
-.toDo.delete, .toDo.completed.delete {
-  opacity: 0;
-  transition: all 0.4s ease-out;
-}
-
-.toDo.completed {
+.toDo-completed {
   text-decoration: line-through;
   text-decoration-color: #fff;
   opacity: 0.5;
