@@ -10,12 +10,13 @@ const TODO = 'toDo';
 const LIST = 'list-task';
 const COMPLETE_BTN = 'complete-task'; 
 const DELETE_BTN = 'detele-task';
+const COMPLETED_TODO = 'toDo-completed';
+const DELETED_TODO = 'toDo-delete';
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
 removeAll.addEventListener('click', removeAllUncompleted);
-removeAll.addEventListener('click', saveStatusCheckbox);
 
 let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
     todo: [],
@@ -27,7 +28,7 @@ function createTask(e) {
   
     let inputValue = input.value;
 
-    if (inputValue.length) {
+    if (inputValue.length !== 0) {
         const newDiv = document.createElement('div');
         newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
@@ -53,7 +54,7 @@ function buttons(todo) {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add(DELETE_BTN);
-    deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>';
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt" aria-hidden="true"></i>';
     todo.appendChild(deleteBtn);
 }
 
@@ -73,7 +74,7 @@ function getToDous() {
         uncompletedList.append(newDiv);
 
         const newLi = document.createElement('li');
-        newLi.classList.add(LIST)
+        newLi.classList.add(LIST);
         newLi.innerText = value;
     
         newDiv.append(newLi);
@@ -85,7 +86,7 @@ function getToDous() {
         const value = data.completed[i];
 
         const newDiv = document.createElement('div');
-        newDiv.classList = 'toDo completed';
+        newDiv.classList = COMPLETED_TODO;
         document.getElementById('completed').append(newDiv);
 
         const newLi = document.createElement('li');
@@ -103,12 +104,14 @@ function deleteToDo(e) {
     const getParent = item.parentElement;
 
     if (item.classList[0] === COMPLETE_BTN) {
-       getParent.classList.toggle('completed');
-       console.log(getParent.className.trim())
+       getParent.classList.toggle(TODO);
+       getParent.classList.toggle(COMPLETED_TODO);
        completeToDo(getParent);
 
     } else if (item.classList[0] === DELETE_BTN) {
-        getParent.classList.add('delete');
+        getParent.style.opacity = 0;
+        getParent.style.transition = 'all 0.4s ease-out';
+        
         removeLocal(getParent);
 
         getParent.addEventListener('transitionend', e => {
@@ -120,9 +123,9 @@ function deleteToDo(e) {
 function removeLocal(todo) {
     const indexLocal = todo.children[0].innerText;
 
-    if (todo.className === 'toDo delete') {
+    if (todo.className === TODO) {
         data.todo.splice(data.todo.indexOf(indexLocal), 1);
-    } else if (todo.className === 'toDo completed delete') {
+    } else if (todo.className === COMPLETED_TODO) {
         data.completed.splice(data.completed.indexOf(indexLocal), 1);
     }
 
@@ -143,9 +146,7 @@ function removeAllUncompleted() {
         data.todo = [];
         data.completed = [];
     }
-}
 
-function saveStatusCheckbox() {
     localStorage.setItem("checkbox1", uncomplitedCheck.checked);
     localStorage.setItem("checkbox2", complitedCheck.checked);
 }
@@ -164,7 +165,7 @@ function completeToDo(todo) {
     const id = parent.id;
     const value = item.innerText;  
 
-    if (todo.className === 'toDo completed') {
+    if (todo.className === COMPLETED_TODO) {
         data.todo.splice(data.todo.indexOf(value), 1);
         data.completed.push(value); 
     } else {
@@ -180,23 +181,23 @@ function completeToDo(todo) {
     target.appendChild(item, target.childNodes[0]);
 }
 
-// window.addEventListener('click', function(e) {
-//     const allToDo = document.getElementsByTagName('li');
 
-//     for (let i = 0; i < allToDo.length; i++) {
-//         if (e.target == allToDo[i]) {
-//             allToDo[i].contentEditable = 'true';
-//         } else { 
-//             for (let i = 0; i < data.todo.length; i++) {
-//                 let value = data.todo[i];
+window.addEventListener('click', function(e) {
+    const isClickInsideElement = document.querySelector('.uncompleted').contains(e.target);
+    const allToDo = document.getElementsByTagName('li');
 
-//                 data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
-//                 value = data.todo[i];
-//             }
+    for (let i = 0; i < allToDo.length; i++) {
+        if (isClickInsideElement) {
+            allToDo[i].contentEditable = 'true';
+        } else { 
+            for (let i = 0; i < data.todo.length; i++) {
+                let value = data.todo[i];
+                data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
+            }
 
-//             allToDo[i].contentEditable = 'false';
-//         }
-//     }
+            allToDo[i].contentEditable = 'false';
+        } 
+    }
 
-//     localStorage.setItem('todoList', JSON.stringify(data));
-// });
+    localStorage.setItem('todoList', JSON.stringify(data));
+});
