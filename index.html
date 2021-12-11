@@ -11,31 +11,33 @@
 </head>
 <body>
     <div class="wrapper">
-        <form>
-            <div class="create-list">
-                <input class="task" id="textbox_id" type="text">
-                <button class="create"><i class="fas fa-plus"></i></button>
-            </div>
-        </form>
-
-        <div class="list">
-            <ul class="uncompleted" id="todo"></ul>
-
-            <ul class="completed" id="completed"></ul>
-
-            <div class="settings">
-                <input type="checkbox" id="uncomplited-check" name="scales">
-                <label for="scales">uncomplited</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="complited-check" name="scales">
-                <label for="scales">complited</label>
-            </div>
-
-            <button class="remove-todo">Remove all</button>
+      <form>
+        <div class="create-list">
+          <input class="task" id="textbox_id" type="text" />
+          <button class="create"><i class="fas fa-plus"></i></button>
         </div>
+      </form>
+
+      <div class="list">
+        <ul class="uncompleted" id="todo"></ul>
+
+        <ul class="completed" id="completed"></ul>
+
+        <div class="settings">
+          <div class="uncomplited-checkbox">
+            <input type="checkbox" id="uncomplited-check" name="scales" />
+            <label for="uncomplited-check">uncomplited</label>
+          </div>
+
+          <div class="complited-checkbox">
+            <input type="checkbox" id="complited-check" name="scales" />
+            <label for="complited-check">complited</label>
+          </div>
+        </div>
+
+        <button class="remove-todo">Remove all</button>
+      </div>
     </div>
     <script src="./scripts/main.js"></script>
-</body>
+  </body>
 </html>
