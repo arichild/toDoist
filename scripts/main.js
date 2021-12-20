@@ -6,11 +6,11 @@ const removeAll = document.querySelector('.remove-todo');
 const uncomplitedCheck = document.getElementById('uncomplited-check');
 const complitedCheck = document.getElementById('complited-check');
 
-const TODO = 'toDo';
+const TODO = 'to-do';
 const LIST = 'list-task';
 const COMPLETE_BTN = 'complete-task'; 
 const DELETE_BTN = 'detele-task';
-const COMPLETED_TODO = 'toDo-completed';
+const COMPLETED_TODO = 'to-do-completed';
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
@@ -23,35 +23,36 @@ let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem(
 };
 
 function createTask(e) {
-    e.preventDefault();
-  
     let inputValue = input.value;
+    let newDiv = document.createElement('div');
+    let newLi = document.createElement('li');
+    
+    e.preventDefault();
 
     if (inputValue.length) {
-        const newDiv = document.createElement('div');
         newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
 
-        const newLi = document.createElement('li');
         newLi.classList.add(LIST);
         newLi.innerText = inputValue;
+        newDiv.append(newLi);
 
         saveLocal(inputValue);
     
         input.value = '';
-        newDiv.append(newLi);
 
         buttons(newDiv);
     } 
 }
 
 function buttons(todo) {
-    const completeBtn = document.createElement('button');
+    let completeBtn = document.createElement('button');
+    let deleteBtn = document.createElement('button');
+    
     completeBtn.classList.add(COMPLETE_BTN);
     completeBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
     todo.appendChild(completeBtn);
 
-    const deleteBtn = document.createElement('button');
     deleteBtn.classList.add(DELETE_BTN);
     deleteBtn.innerHTML = '<i class="far fa-trash-alt" aria-hidden="true"></i>';
     todo.appendChild(deleteBtn);
@@ -63,35 +64,33 @@ function saveLocal(todo) {
 }
 
 function getToDous() {
-    if (!data.todo.length && !data.completed.length) return;
+    if (data.todo !== 'undefined' && !data.todo.length && data.completed !== 'undefined' && !data.completed.length) return;
 
     for (let i = 0; i < data.todo.length; i++) {
         let value = data.todo[i];
+        let newDiv = document.createElement('div');
+        let newLi = document.createElement('li');
 
-        const newDiv = document.createElement('div');
         newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
 
-        const newLi = document.createElement('li');
         newLi.classList.add(LIST);
         newLi.innerText = value;
-    
         newDiv.append(newLi);
 
         buttons(newDiv);
     }
 
     for (let i = 0; i < data.completed.length; i++) {
-        const value = data.completed[i];
+        let value = data.completed[i];
+        let newDiv = document.createElement('div');
+        let newLi = document.createElement('li');
 
-        const newDiv = document.createElement('div');
         newDiv.classList = COMPLETED_TODO;
         document.getElementById('completed').append(newDiv);
 
-        const newLi = document.createElement('li');
         newLi.classList.add(LIST);
         newLi.innerText = value;
-    
         newDiv.append(newLi);
 
         buttons(newDiv);
@@ -99,8 +98,8 @@ function getToDous() {
 }
 
 function deleteToDo(e) {
-    const item = e.target;
-    const getParent = item.parentElement;
+    let item = e.target;
+    let getParent = item.parentElement;
 
     if (item.classList[0] === COMPLETE_BTN) {
        getParent.classList.toggle(TODO);
@@ -120,7 +119,7 @@ function deleteToDo(e) {
 }
 
 function removeLocal(todo) {
-    const indexLocal = todo.children[0].innerText;
+    let indexLocal = todo.children[0].innerText;
 
     if (todo.className === TODO) {
         data.todo.splice(data.todo.indexOf(indexLocal), 1);
@@ -156,10 +155,10 @@ function removeAllUncompleted() {
 })();
 
 function completeToDo(todo) {
-    const item = todo;
-    const parent = item.parentNode;
-    const id = parent.id;
-    const value = item.innerText;  
+    let item = todo;
+    let parent = item.parentNode;
+    let id = parent.id;
+    let value = item.innerText;  
 
     if (todo.className === COMPLETED_TODO) {
         data.todo.splice(data.todo.indexOf(value), 1);
@@ -177,10 +176,9 @@ function completeToDo(todo) {
     target.appendChild(item, target.childNodes[0]);
 }
 
-
 window.addEventListener('click', function(e) {
-    const isClickInsideElement = document.querySelector('.uncompleted').contains(e.target);
-    const allToDo = document.querySelectorAll('.list-task');
+    let isClickInsideElement = document.querySelector('.uncompleted').contains(e.target);
+    let allToDo = document.querySelectorAll('.list-task');
 
     for (let i = 0; i < allToDo.length; i++) {
         if (isClickInsideElement) {

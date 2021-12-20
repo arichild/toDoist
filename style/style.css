@@ -73,8 +73,8 @@ i {
   display: none;
 }
 
-.toDo,
-.toDo-completed {
+.to-do,
+.to-do-completed {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
@@ -90,7 +90,7 @@ i {
   word-break: break-all;
 }
 
-.toDo-completed {
+.to-do-completed {
   text-decoration: line-through;
   text-decoration-color: #fff;
   opacity: 0.5;
