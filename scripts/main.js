@@ -11,7 +11,6 @@ const LIST = 'list-task';
 const COMPLETE_BTN = 'complete-task'; 
 const DELETE_BTN = 'detele-task';
 const COMPLETED_TODO = 'toDo-completed';
-const DELETED_TODO = 'toDo-delete';
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
@@ -28,7 +27,7 @@ function createTask(e) {
   
     let inputValue = input.value;
 
-    if (inputValue.length !== 0) {
+    if (inputValue.length) {
         const newDiv = document.createElement('div');
         newDiv.classList.add(TODO);
         uncompletedList.append(newDiv);
@@ -97,7 +96,7 @@ function getToDous() {
 
         buttons(newDiv);
     }
-};
+}
 
 function deleteToDo(e) {
     const item = e.target;
@@ -152,11 +151,8 @@ function removeAllUncompleted() {
 }
 
 (function() {
-    let checkbox1 = JSON.parse(localStorage.getItem("checkbox1"));
-    uncomplitedCheck.checked = checkbox1;
-    
-    let checkbox2 = JSON.parse(localStorage.getItem("checkbox2"));
-    complitedCheck.checked = checkbox2;
+    uncomplitedCheck.checked = JSON.parse(localStorage.getItem("checkbox1"));
+    complitedCheck.checked = JSON.parse(localStorage.getItem("checkbox2"));
 })();
 
 function completeToDo(todo) {
@@ -184,7 +180,7 @@ function completeToDo(todo) {
 
 window.addEventListener('click', function(e) {
     const isClickInsideElement = document.querySelector('.uncompleted').contains(e.target);
-    const allToDo = document.getElementsByTagName('li');
+    const allToDo = document.querySelectorAll('.list-task');
 
     for (let i = 0; i < allToDo.length; i++) {
         if (isClickInsideElement) {

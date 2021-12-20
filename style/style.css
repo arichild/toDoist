@@ -24,7 +24,6 @@ body {
 button {
   font-family: "Mulish", sans-serif;
   width: 40px;
-  height: 40px;
   border: 2px solid #fff;
   background-color: transparent;
   outline: none;
@@ -65,7 +64,7 @@ i {
 }
 
 #todo {
-  height: 200px;
+  height: 220px;
   overflow: auto;
   scrollbar-width: none;
 }
@@ -78,17 +77,17 @@ i {
 .toDo-completed {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   margin-top: 15px;
 }
 
 .list-task {
   flex: 1;
-  height: 40px;
   padding: 5px 10px;
   color: #fff;
   background-color: #292929;
   list-style: none;
+  word-break: break-all;
 }
 
 .toDo-completed {
@@ -110,6 +109,7 @@ i {
 
 .remove-todo {
   width: 200px;
+  height: 40px;
   margin-top: 35px;
   font-size: 15px;
   color: #fff;
@@ -117,4 +117,10 @@ i {
 
 label {
   color: #fff;
+}
+
+.settings-box {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
