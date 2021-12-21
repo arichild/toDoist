@@ -1,3 +1,9 @@
+const TODO = 'to-do';
+const LIST = 'list-task';
+const COMPLETE_BTN = 'complete-task'; 
+const DELETE_BTN = 'detele-task';
+const COMPLETED_TODO = 'to-do-completed';
+
 const input = document.querySelector('.task');
 const btnCreate = document.querySelector('.create');
 const uncompletedList = document.querySelector('.uncompleted');
@@ -6,21 +12,15 @@ const removeAll = document.querySelector('.remove-todo');
 const uncomplitedCheck = document.getElementById('uncomplited-check');
 const complitedCheck = document.getElementById('complited-check');
 
-const TODO = 'to-do';
-const LIST = 'list-task';
-const COMPLETE_BTN = 'complete-task'; 
-const DELETE_BTN = 'detele-task';
-const COMPLETED_TODO = 'to-do-completed';
+let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
+    todo: [],
+    completed: []
+};
 
 document.addEventListener('DOMContentLoaded', getToDous);
 btnCreate.addEventListener('click', createTask);
 document.body.addEventListener('click', deleteToDo);
 removeAll.addEventListener('click', removeAllUncompleted);
-
-let data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')) : {
-    todo: [],
-    completed: []
-};
 
 function createTask(e) {
     let inputValue = input.value;
@@ -149,18 +149,12 @@ function removeAllUncompleted() {
     localStorage.setItem("checkbox2", complitedCheck.checked);
 }
 
-(function() {
-    uncomplitedCheck.checked = JSON.parse(localStorage.getItem("checkbox1"));
-    complitedCheck.checked = JSON.parse(localStorage.getItem("checkbox2"));
-})();
-
 function completeToDo(todo) {
-    let item = todo;
-    let parent = item.parentNode;
+    let parent = todo.parentNode;
     let id = parent.id;
-    let value = item.innerText;  
+    let value = todo.innerText;  
 
-    if (todo.className === COMPLETED_TODO) {
+    if (data.todo !== 'undefined' && todo.className === COMPLETED_TODO) {
         data.todo.splice(data.todo.indexOf(value), 1);
         data.completed.push(value); 
     } else {
@@ -169,11 +163,11 @@ function completeToDo(todo) {
     }
 
     localStorage.setItem('todoList', JSON.stringify(data));
-
+    
     let target = (id === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
-
-    parent.removeChild(item);
-    target.appendChild(item, target.childNodes[0]);
+    
+    parent.removeChild(todo);
+    target.appendChild(todo, target.childNodes[0]);
 }
 
 window.addEventListener('click', function(e) {
@@ -181,17 +175,22 @@ window.addEventListener('click', function(e) {
     let allToDo = document.querySelectorAll('.list-task');
 
     for (let i = 0; i < allToDo.length; i++) {
-        if (isClickInsideElement) {
+        if (data.todo !== 'undefined' && isClickInsideElement) {
             allToDo[i].contentEditable = 'true';
         } else { 
             for (let i = 0; i < data.todo.length; i++) {
                 let value = data.todo[i];
                 data.todo.splice(data.todo.indexOf(value), 1, allToDo[i].innerText);
             }
-
+            
             allToDo[i].contentEditable = 'false';
         } 
     }
-
+    
     localStorage.setItem('todoList', JSON.stringify(data));
 });
+
+(function() {
+    uncomplitedCheck.checked = JSON.parse(localStorage.getItem("checkbox1"));
+    complitedCheck.checked = JSON.parse(localStorage.getItem("checkbox2"));
+})();
