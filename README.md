@@ -1,5 +1,5 @@
 ## Description
-A simple ToDo list built in HTML, CSS and JavaScript: https://arichild.github.io/toDoist/
+A simple ToDo list built in HTML, CSS and JavaScript: https://arichild.github.io/todo-list/
 ## Details
 #### Main Features:
 1. Creating new tasks
